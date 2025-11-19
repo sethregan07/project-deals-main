@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/project-deals-main/static/css/main.757efca9.css",
+    "main.js": "/project-deals-main/static/js/main.d4136576.js",
+    "static/js/787.b012ab03.chunk.js": "/project-deals-main/static/js/787.b012ab03.chunk.js",
+    "index.html": "/project-deals-main/index.html",
+    "main.757efca9.css.map": "/project-deals-main/static/css/main.757efca9.css.map",
+    "main.d4136576.js.map": "/project-deals-main/static/js/main.d4136576.js.map",
+    "787.b012ab03.chunk.js.map": "/project-deals-main/static/js/787.b012ab03.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.757efca9.css",
+    "static/js/main.d4136576.js"
+  ]
+}
