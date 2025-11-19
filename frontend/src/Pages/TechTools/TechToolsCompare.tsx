@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 interface TechTool {
@@ -20,7 +20,6 @@ const TechToolsCompare: React.FC = () => {
   const [allTools, setAllTools] = useState<TechTool[]>([]);
   const [selectedTools, setSelectedTools] = useState<TechTool[]>([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -83,10 +82,6 @@ const TechToolsCompare: React.FC = () => {
 
   const formatCategoryName = (category: string) => {
     return category.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-  };
-
-  const handleToolClick = (toolId: number) => {
-    navigate(`/tech-tool/${toolId}`);
   };
 
   if (loading) {

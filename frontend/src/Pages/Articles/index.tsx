@@ -247,7 +247,7 @@ export default function Articles() {
               key={category}
               variant={selectedCategory === category ? 'filled' : 'light'}
               onClick={() => setSelectedCategory(category)}
-              textTransform="capitalize"
+              style={{ textTransform: 'capitalize' }}
             >
               {category}
             </Button>

@@ -1,19 +1,10 @@
 import React, { useState } from 'react';
-import { Card, Image, Text, Group, Badge, Center, ActionIcon, rem } from '@mantine/core';
-import { IconGasStation, IconGauge, IconManualGearbox, IconUsers } from '@tabler/icons-react';
+import { Card, Text, Group } from '@mantine/core';
 import classes from './FeaturesCard.module.css';
-import { Link } from 'react-router-dom';
-
-const mockdata = [
-  { label: '4 passengers', icon: IconUsers },
-  { label: '100 km/h in 4 seconds', icon: IconGauge },
-  { label: 'Automatic gearbox', icon: IconManualGearbox },
-  { label: 'Electric', icon: IconGasStation },
-];
 
 export default function SmallCard(props) {
   const { smallData, selectProduct, closeSecondModal} = props;
-  const { id, img, url, name, description, deal } = smallData;
+  const { id, img, name } = smallData;
 
   // const { price, currency, storeImg, discount } = deal;
 
