@@ -1235,6 +1235,24 @@ app.delete("/articles/:id", async (req, res) => {
   }
 });
 
+// GET /categories - Get article categories with counts
+app.get("/categories", async (req, res) => {
+  try {
+    const getCategoriesQuery = `
+      SELECT category, COUNT(*) as count
+      FROM articles
+      WHERE category IS NOT NULL AND category != ''
+      GROUP BY category
+      ORDER BY count DESC;
+    `;
+    const categories = await db.all(getCategoriesQuery);
+    res.json(categories);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.get("/", async (req, res) => {
   try {
     // Fetch deals from GSM Arena

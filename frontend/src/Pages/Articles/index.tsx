@@ -14,6 +14,8 @@ import {
   Input,
   Divider,
   Avatar,
+  CircularProgress,
+  Alert,
 } from '@mui/joy';
 import {
   IconSearch,
@@ -30,284 +32,19 @@ import { Link } from 'react-router-dom';
 interface Article {
   id: number;
   title: string;
-  excerpt: string;
-  imageUrl: string;
-  category: string;
-  date: string;
-  readTime: string;
-  views: string;
+  content: string;
+  author?: string;
+  image_url?: string;
+  category?: string;
+  published_date: string;
+  created_at: string;
+  updated_at: string;
+  excerpt?: string;
+  imageUrl?: string;
+  date?: string;
+  readTime?: string;
+  views?: string;
 }
-
-const heroMain: Article = {
-  id: 1,
-  title: 'Game Changing Virtual Reality Console Technology To Serve The Community',
-  excerpt:
-    'Discover how the next generation of VR consoles is transforming gaming, education, and remote collaboration.',
-  imageUrl:
-    'https://images.unsplash.com/photo-1580894742597-87d793ddaf26?w=1200&q=80',
-  category: 'Technology',
-  date: '24 August, 2024',
-  readTime: '8 min read',
-  views: '32k views',
-};
-
-const heroSide: Article[] = [
-  {
-    id: 2,
-    title: 'New Modern Phone Brings Extra Revolutionary Performance',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80',
-    category: 'Mobile',
-    date: '22 August, 2024',
-    readTime: '5 min read',
-    views: '12k views',
-  },
-  {
-    id: 3,
-    title: 'A Guide To Image Optimization On Jamstack Sites',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600&q=80',
-    category: 'Tutorial',
-    date: '21 August, 2024',
-    readTime: '6 min read',
-    views: '9.3k views',
-  },
-  {
-    id: 4,
-    title: 'Using Automated Testing Tools To Improve Accessibility',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80',
-    category: 'Development',
-    date: '20 August, 2024',
-    readTime: '7 min read',
-    views: '7.1k views',
-  },
-];
-
-const editorsChoice: Article[] = [
-  {
-    id: 5,
-    title: 'Using Automated Tests To Refactor Legacy Code',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80',
-    category: 'Review',
-    date: '19 August, 2024',
-    readTime: '4 min read',
-    views: '5.2k views',
-  },
-  {
-    id: 6,
-    title: 'How To Search For A Developer Job Abroad',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=600&q=80',
-    category: 'Career',
-    date: '17 August, 2024',
-    readTime: '6 min read',
-    views: '3.8k views',
-  },
-  {
-    id: 7,
-    title: 'New Stunning Front-End UI Workshop Recap',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80',
-    category: 'Design',
-    date: '16 August, 2024',
-    readTime: '5 min read',
-    views: '4.1k views',
-  },
-];
-
-const recentPosts: Article[] = [
-  {
-    id: 8,
-    title: 'Best Tech Accessories To Work From Home Comfortably',
-    excerpt:
-      'We review keyboards, webcams, lighting, and ergonomic chairs that make remote work more enjoyable.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1587613864521-9ef9ef42e814?w=1200&q=80',
-    category: 'Review',
-    date: '15 August, 2024',
-    readTime: '9 min read',
-    views: '10.4k views',
-  },
-  {
-    id: 9,
-    title: 'How To Create Advanced Animations With CSS',
-    excerpt:
-      'Take your interfaces to the next level with transitions, keyframes, and scroll-based effects.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80',
-    category: 'Tutorial',
-    date: '14 August, 2024',
-    readTime: '7 min read',
-    views: '6.9k views',
-  },
-  {
-    id: 10,
-    title: 'New Stunning Front-End UI Trend Watch',
-    excerpt:
-      'Gradients, glassmorphism, and micro-animations are back — here’s how to use them tastefully.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80',
-    category: 'Design',
-    date: '13 August, 2024',
-    readTime: '5 min read',
-    views: '4.3k views',
-  },
-];
-
-const trendingMain: Article = {
-  id: 11,
-  title: 'iPhone Devices Are Going To Be Incredible Nowadays',
-  excerpt:
-    'Between camera upgrades, powerful chips, and seamless ecosystem features, modern devices are more capable than ever.',
-  imageUrl:
-    'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&q=80',
-  category: 'Gadget',
-  date: '12 August, 2024',
-  readTime: '8 min read',
-  views: '18.1k views',
-};
-
-const trendingGrid: Article[] = [
-  {
-    id: 12,
-    title: 'One-Pan Baked Sausage And Lentils For Busy Devs',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80',
-    category: 'Lifestyle',
-    date: '11 August, 2024',
-    readTime: '4 min read',
-    views: '3.4k views',
-  },
-  {
-    id: 13,
-    title: 'How To Create Advanced Animations With CSS',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80',
-    category: 'Tutorial',
-    date: '10 August, 2024',
-    readTime: '6 min read',
-    views: '5.9k views',
-  },
-  {
-    id: 14,
-    title: 'State Of CSS: Influence The Future Of CSS',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80',
-    category: 'Report',
-    date: '9 August, 2024',
-    readTime: '5 min read',
-    views: '4.7k views',
-  },
-  {
-    id: 15,
-    title: 'Essential Gear For Hybrid Work In 2024',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80',
-    category: 'Tech',
-    date: '8 August, 2024',
-    readTime: '6 min read',
-    views: '4.0k views',
-  },
-];
-
-const weeklyBest: Article[] = [
-  {
-    id: 16,
-    title: 'WordPress Full-Site Editing: A Deep Dive',
-    excerpt:
-      'Discover the new editor, block themes, and how to migrate existing sites safely.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&q=80',
-    category: 'Tutorial',
-    date: '7 August, 2024',
-    readTime: '10 min read',
-    views: '6.1k views',
-  },
-  {
-    id: 17,
-    title: 'Effective Communication For Everyday Meetings',
-    excerpt:
-      'Tips for facilitating productive online and offline meetings with your team.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1521791055366-0d553872125f?w=800&q=80',
-    category: 'Productivity',
-    date: '6 August, 2024',
-    readTime: '7 min read',
-    views: '5.3k views',
-  },
-  {
-    id: 18,
-    title: 'A Roadmap For Building A Business Chatbot',
-    excerpt:
-      'From defining your use case to picking the right tools and measuring ROI.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80',
-    category: 'Business',
-    date: '5 August, 2024',
-    readTime: '9 min read',
-    views: '4.9k views',
-  },
-  {
-    id: 19,
-    title: 'Easy Fluid Typography With clamp()',
-    excerpt:
-      'Scale your font sizes smoothly across breakpoints with modern CSS techniques.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80',
-    category: 'CSS',
-    date: '4 August, 2024',
-    readTime: '6 min read',
-    views: '3.2k views',
-  },
-];
-
-const popularSide: Article[] = [
-  {
-    id: 20,
-    title: 'The Future Of CSS',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80',
-    category: 'Tech News',
-    date: '3 August, 2024',
-    readTime: '6 min read',
-    views: '3.5k views',
-  },
-  {
-    id: 21,
-    title: 'Best Tech Accessories To Work From Home',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1587613864521-9ef9ef42e814?w=800&q=80',
-    category: 'Review',
-    date: '2 August, 2024',
-    readTime: '7 min read',
-    views: '3.1k views',
-  },
-  {
-    id: 22,
-    title: 'The Author Chocolate Cookie Daily',
-    excerpt: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80',
-    category: 'Lifestyle',
-    date: '1 August, 2024',
-    readTime: '4 min read',
-    views: '2.4k views',
-  },
-];
 
 // small meta line
 function Meta({ article }: { article: Article }) {
@@ -338,6 +75,82 @@ function Meta({ article }: { article: Article }) {
 }
 
 export default function ArticlesHome() {
+  const [articles, setArticles] = React.useState<Article[]>([]);
+  const [categories, setCategories] = React.useState<{category: string, count: number}[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [articlesRes, categoriesRes] = await Promise.all([
+          fetch('http://localhost:3002/articles'),
+          fetch('http://localhost:3002/categories')
+        ]);
+
+        if (!articlesRes.ok) throw new Error('Failed to fetch articles');
+        if (!categoriesRes.ok) throw new Error('Failed to fetch categories');
+
+        const articlesData = await articlesRes.json();
+        const categoriesData = await categoriesRes.json();
+
+        setArticles(articlesData);
+        setCategories(categoriesData);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          minHeight: '70vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <CircularProgress size="lg" />
+      </Box>
+    );
+  }
+
+  if (error || articles.length === 0) {
+    return (
+      <Box sx={{ maxWidth: 900, mx: 'auto', mt: 6, px: 2 }}>
+        <Alert color="danger" variant="soft">
+          {error || 'No articles found'}
+        </Alert>
+      </Box>
+    );
+  }
+
+  // Transform articles to match display format
+  const transformArticle = (article: Article) => ({
+    ...article,
+    excerpt: article.content.substring(0, 150) + '...',
+    imageUrl: article.image_url,
+    date: new Date(article.published_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    readTime: `${Math.ceil(article.content.split(' ').length / 200)} min read`,
+    views: `${Math.floor(Math.random() * 50) + 1}k views`, // Dummy views
+  });
+
+  const transformedArticles = articles.map(transformArticle);
+
+  const heroMain = transformedArticles[0] || {};
+  const heroSide = transformedArticles.slice(1, 4);
+  const editorsChoice = transformedArticles.slice(4, 7);
+  const recentPosts = transformedArticles.slice(7, 10);
+  const trendingMain = transformedArticles[10] || transformedArticles[0] || {};
+  const trendingGrid = transformedArticles.slice(11, 15);
+  const weeklyBest = transformedArticles.slice(15, 19);
+  const popularSide = transformedArticles.slice(19, 22);
   return (
     <Box sx={{ bgcolor: 'background.body', minHeight: '100vh' }}>
       {/* Top header */}
@@ -643,12 +456,13 @@ export default function ArticlesHome() {
             </Box>
 
             {/* Main recent card */}
-            <Card
-              variant="outlined"
-              sx={{ mb: 2.5, cursor: 'pointer', textDecoration: 'none' }}
-              component={Link}
-              to={`/articles/${recentPosts[0].id}`}
-            >
+            {recentPosts.length > 0 && (
+              <Card
+                variant="outlined"
+                sx={{ mb: 2.5, cursor: 'pointer', textDecoration: 'none' }}
+                component={Link}
+                to={`/articles/${recentPosts[0].id}`}
+              >
               <Grid container spacing={2}>
                 <Grid xs={12} sm={7}>
                   <AspectRatio ratio="16/9">
@@ -676,6 +490,7 @@ export default function ArticlesHome() {
                 </Grid>
               </Grid>
             </Card>
+            )}
 
             {/* two small recent cards */}
             <Grid container spacing={2}>
@@ -740,42 +555,40 @@ export default function ArticlesHome() {
                   Hot Categories
                 </Typography>
                 <Stack spacing={1}>
-                  {['Gadgets', 'Technology', 'Design', 'Development'].map(
-                    (cat, index) => (
-                      <Sheet
-                        key={cat}
-                        variant="soft"
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          py: 1,
-                          px: 1.5,
-                          borderRadius: 'sm',
-                          cursor: 'pointer',
-                        }}
-                        component={Link}
-                        to={`/categories/${cat.toLowerCase()}`}
-                      >
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                          <AspectRatio ratio="1" sx={{ width: 40 }}>
-                            <Box
-                              component="img"
-                              src={`https://images.unsplash.com/photo-15${
-                                index + 1
-                              }8770660439-4636190af475?w=400&q=80`}
-                              alt={cat}
-                              loading="lazy"
-                            />
-                          </AspectRatio>
-                          <Typography level="body-sm">{cat}</Typography>
-                        </Box>
-                        <Typography level="body-xs" color="neutral">
-                          {10 + index * 3} posts
-                        </Typography>
-                      </Sheet>
-                    ),
-                  )}
+                  {categories.slice(0, 4).map((cat, index) => (
+                    <Sheet
+                      key={cat.category}
+                      variant="soft"
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        py: 1,
+                        px: 1.5,
+                        borderRadius: 'sm',
+                        cursor: 'pointer',
+                      }}
+                      component={Link}
+                      to={`/categories/${cat.category.toLowerCase()}`}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <AspectRatio ratio="1" sx={{ width: 40 }}>
+                          <Box
+                            component="img"
+                            src={`https://images.unsplash.com/photo-15${
+                              index + 1
+                            }8770660439-4636190af475?w=400&q=80`}
+                            alt={cat.category}
+                            loading="lazy"
+                          />
+                        </AspectRatio>
+                        <Typography level="body-sm">{cat.category}</Typography>
+                      </Box>
+                      <Typography level="body-xs" color="neutral">
+                        {cat.count} posts
+                      </Typography>
+                    </Sheet>
+                  ))}
                 </Stack>
               </Card>
             </Stack>
