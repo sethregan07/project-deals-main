@@ -28,6 +28,7 @@ import {
   IconBrandLinkedin,
 } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
+import { supabase } from '../../supabaseClient';
 
 interface Article {
   id: number;
@@ -84,18 +85,15 @@ export default function ArticlesHome() {
     const fetchData = async () => {
       try {
         const [articlesRes, categoriesRes] = await Promise.all([
-          fetch('http://localhost:3002/articles'),
-          fetch('http://localhost:3002/categories')
+          supabase.from('articles').select('*').order('published_date', { ascending: false }),
+          supabase.from('categories').select('*')
         ]);
 
-        if (!articlesRes.ok) throw new Error('Failed to fetch articles');
-        if (!categoriesRes.ok) throw new Error('Failed to fetch categories');
+        if (articlesRes.error) throw new Error('Failed to fetch articles');
+        if (categoriesRes.error) throw new Error('Failed to fetch categories');
 
-        const articlesData = await articlesRes.json();
-        const categoriesData = await categoriesRes.json();
-
-        setArticles(articlesData);
-        setCategories(categoriesData);
+        setArticles(articlesRes.data || []);
+        setCategories(categoriesRes.data || []);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
@@ -535,10 +533,10 @@ export default function ArticlesHome() {
                   color: 'common.white',
                 }}
               >
-                <Typography color='white' level="title-md" mb={0.5}>
+                <Typography level="title-md" mb={0.5}>
                   Daily Newsletter
                 </Typography>
-                <Typography level="body-xs" color="white" mb={1.5}>
+                <Typography level="body-xs" mb={1.5}>
                   Get all the top stories from Tech News today.
                 </Typography>
                 <Stack spacing={1}>
@@ -909,11 +907,11 @@ export default function ArticlesHome() {
                   color: 'common.white',
                 }}
               >
-                <Typography color='white' level="title-md" mb={1}>
+                <Typography level="title-md" mb={1}>
                   Automation Discount
                 </Typography>
-                <Typography color='white' level="body-sm" mb={1.5}>
-                  20% off on all automation &amp; cloud infrastructure courses
+                <Typography level="body-sm" mb={1.5}>
+                  20% off on all automation & cloud infrastructure courses
                   this week only.
                 </Typography>
                 <Button size="sm" variant="soft">
@@ -1038,9 +1036,9 @@ export default function ArticlesHome() {
               >
                 zaira
               </Typography>
-              <Typography level="body-xs" color="neutral.300">
+              <Typography level="body-xs">
                 Beyond the buzz. We bring sharp stories, deep dives, and honest
-                reviews straight from the world of technology &amp; design.
+                reviews straight from the world of technology & design.
               </Typography>
             </Grid>
             <Grid xs={6} md={3}>
@@ -1089,7 +1087,7 @@ export default function ArticlesHome() {
                 <IconBrandInstagram size={18} />
                 <IconBrandLinkedin size={18} />
               </Box>
-              <Typography level="body-xs" color="neutral.400">
+              <Typography level="body-xs">
                 © 2024 Zaira News. All rights reserved.
               </Typography>
             </Grid>

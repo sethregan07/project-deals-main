@@ -1,6 +1,7 @@
 // src/Pages/Articles/ArticleDetail.tsx
 import * as React from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { supabase } from '../../supabaseClient';
 
 import {
   Box,
@@ -451,9 +452,13 @@ function ArticleDetail() {
   React.useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const res = await fetch(`http://localhost:3002/articles/${id}`);
-        if (!res.ok) throw new Error('Failed to fetch article');
-        const data = await res.json();
+        const { data, error } = await supabase
+          .from('articles')
+          .select('*')
+          .eq('id', parseInt(id || '1'))
+          .single();
+
+        if (error) throw new Error('Failed to fetch article');
         setArticle(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
@@ -520,7 +525,7 @@ function ArticleDetail() {
             <React.Fragment key={b.label}>
               {i > 0 && <Typography>/</Typography>}
               {b.href === '#' ? (
-                <Typography color="neutral.plainColor">{b.label}</Typography>
+                <Typography>{b.label}</Typography>
               ) : (
                 <Typography
                   component={Link}
